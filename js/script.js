@@ -247,8 +247,8 @@ $(function() {
             $('#checkout-tendered').focus()
             $('#checkout-tendered').on('change input', function() {
                 var pay = $(this).val()
-                change = parseFloat(pay) - parseFloat(total)
-                $('#checkout-change').val(parseFloat(change).toLocaleString('en-US'))
+                // change = parseFloat(pay) - parseFloat(total)
+                // $('#checkout-change').val(parseFloat(change).toLocaleString('en-US'))
             })
         })
     })
