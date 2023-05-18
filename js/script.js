@@ -267,15 +267,48 @@ $(function() {
                     var el = $('<div>')
                     el.html(resp)
                     el.find('#r-total').text(parseFloat(total).toLocaleString('en-US', { style: 'decimal', maximumFractionDigits: 2, minimumFractionDigits: 2 }))
-                    el.find('#r-tendered').text(parseFloat(parseFloat(total) + parseFloat(change)).toLocaleString('en-US', { style: 'decimal', maximumFractionDigits: 2, minimumFractionDigits: 2 }))
-                    el.find('#r-change').text(parseFloat(change).toLocaleString('en-US', { style: 'decimal', maximumFractionDigits: 2, minimumFractionDigits: 2 }))
+                    // el.find('#r-tendered').text(parseFloat(parseFloat(total) + parseFloat(change)).toLocaleString('en-US', { style: 'decimal', maximumFractionDigits: 2, minimumFractionDigits: 2 }))
+                    // el.find('#r-change').text(parseFloat(change).toLocaleString('en-US', { style: 'decimal', maximumFractionDigits: 2, minimumFractionDigits: 2 }))
                     Object.keys(listed).map((k) => {
-                        el.find('#product-list').append('<div class="col-1 text-center">' + (parseFloat(listed[k].qty).toLocaleString('en-US')) + '</div>')
-                        el.find('#product-list').append('<div class="col-8 text-start lh-1">' + (listed[k].product) + '<div><small>x ' + (parseFloat(listed[k].price).toLocaleString('en-US', { style: 'decimal', maximumFractionDigits: 2, minimumFractionDigits: 2 })) + '</small></div></div>')
-                        el.find('#product-list').append('<div class="col-3 text-end">' + (parseFloat(listed[k].qty * listed[k].price).toLocaleString('en-US', { style: 'decimal', maximumFractionDigits: 2, minimumFractionDigits: 2 })) + '</div>')
+                        
+                        el.find('#product-list').append('<div class="col-6 text-start lh-1">' + (listed[k].product)  + '</small></div></div>')
+                        el.find('#product-list').append('<div class="col-1 text-start">' + (parseFloat(listed[k].length1).toLocaleString('en-US')) + '</div>')
+                        el.find('#product-list').append('<div class="col-1 text-start">' + (parseFloat(listed[k].width).toLocaleString('en-US')) + '</div>')
+                        el.find('#product-list').append('<div class="col-1 text-start">' + (parseFloat(listed[k].qty).toLocaleString('en-US')) + '</div>')
+                        el.find('#product-list').append('<div class="col-3 text-end">' + (parseFloat(parseFloat(listed[k].price) * parseFloat(listed[k].qty) * (parseFloat(listed[k].length1) >= 1 && parseFloat(listed[k].length1) <= 6.9 ? 0.5 :parseFloat(listed[k].length1) >= 7 && parseFloat(listed[k].length1) <= 8.9 ? 0.75 : parseFloat(listed[k].length1) >= 9 && parseFloat(listed[k].length1) <= 12.4 ? 1 :
+                        parseFloat(listed[k].length1) >= 12.5 && parseFloat(listed[k].length1) <= 15.4 ? 1.25 :
+                        parseFloat(listed[k].length1) >= 15.5 && parseFloat(listed[k].length1) <= 18.9 ? 1.5 :
+                        parseFloat(listed[k].length1) >= 19 && parseFloat(listed[k].length1) <= 24.9 ? 2.15 :
+                        parseFloat(listed[k].length1) >= 25 && parseFloat(listed[k].length1) <= 30.9 ? 2.75 :
+                        parseFloat(listed[k].length1) >= 31 && parseFloat(listed[k].length1) <= 38.9 ? 3 :
+                        parseFloat(listed[k].length1) >= 39 && parseFloat(listed[k].length1) <= 42.9 ? 3.5 :
+                        parseFloat(listed[k].length1) >= 43 && parseFloat(listed[k].length1) <= 48.9 ? 4 :
+                        parseFloat(listed[k].length1) >= 49 && parseFloat(listed[k].length1) <= 54.9 ? 4.5 :
+                        parseFloat(listed[k].length1) >= 55 && parseFloat(listed[k].length1) <= 65.9 ? 5.5 :
+                        parseFloat(listed[k].length1) >= 66 && parseFloat(listed[k].length1) <= 72.9 ? 6 :
+                        parseFloat(listed[k].length1) >= 73 && parseFloat(listed[k].length1) <= 84.9 ? 7 :
+                        parseFloat(listed[k].length1) >= 85 && parseFloat(listed[k].length1) <= 96.9 ? 8 :
+                        parseFloat(listed[k].length1) >= 97 && parseFloat(listed[k].length1) <= 108 ? 9 :
+                        parseFloat(listed[k].length1) >= 109 && parseFloat(listed[k].length1) <= 120 ? 10 :
+                        parseFloat(listed[k].length1) >= 121 && parseFloat(listed[k].length1) <= 133 ? 11 : 0)) * (parseFloat(listed[k].width) >= 1 && parseFloat(listed[k].width) <= 6.9 ? 0.5 :parseFloat(listed[k].width) >= 7 && parseFloat(listed[k].width) <= 8.9 ? 0.75 : parseFloat(listed[k].width) >= 9 && parseFloat(listed[k].width) <= 12.4 ? 1 :
+                        parseFloat(listed[k].width) >= 12.5 && parseFloat(listed[k].width) <= 15.4 ? 1.25 :
+                        parseFloat(listed[k].width) >= 15.5 && parseFloat(listed[k].width) <= 18.9 ? 1.5 :
+                        parseFloat(listed[k].width) >= 19 && parseFloat(listed[k].width) <= 24.9 ? 2.15 :
+                        parseFloat(listed[k].width) >= 25 && parseFloat(listed[k].width) <= 30.9 ? 2.75 :
+                        parseFloat(listed[k].width) >= 31 && parseFloat(listed[k].width) <= 38.9 ? 3 :
+                        parseFloat(listed[k].width) >= 39 && parseFloat(listed[k].width) <= 42.9 ? 3.5 :
+                        parseFloat(listed[k].width) >= 43 && parseFloat(listed[k].width) <= 48.9 ? 4 :
+                        parseFloat(listed[k].width) >= 49 && parseFloat(listed[k].width) <= 54.9 ? 4.5 :
+                        parseFloat(listed[k].width) >= 55 && parseFloat(listed[k].width) <= 65.9 ? 5.5 :
+                        parseFloat(listed[k].width) >= 66 && parseFloat(listed[k].width) <= 72.9 ? 6 :
+                        parseFloat(listed[k].width) >= 73 && parseFloat(listed[k].width) <= 84.9 ? 7 :
+                        parseFloat(listed[k].width) >= 85 && parseFloat(listed[k].width) <= 96.9 ? 8 :
+                        parseFloat(listed[k].width) >= 97 && parseFloat(listed[k].width) <= 108 ? 9 :
+                        parseFloat(listed[k].width) >= 109 && parseFloat(listed[k].width) <= 120 ? 10 :
+                        parseFloat(listed[k].width) >= 121 && parseFloat(listed[k].width) <= 133 ? 11 : 0).toLocaleString('en-US', { style: 'decimal', maximumFractionDigits: 2, minimumFractionDigits: 2 })) + '</div>')
                     })
 
-
+// + (parseFloat(listed[k].price).toLocaleString('en-US', { style: 'decimal', maximumFractionDigits: 2, minimumFractionDigits: 2 }))
                     var nw = window.open('', '_blank', 'width=1000,height=900')
                     console.log(el.html())
                     nw.document.write(el.html())
