@@ -118,7 +118,7 @@ function load_list() {
             item.find('.length1').val(parseFloat(listed[k].length1))
             item.find('.width').val(parseFloat(listed[k].width))
             item.find('#original-length').text(parseFloat(listed[k].length1));
-item.find('#original-width').text(parseFloat(listed[k].width));
+            item.find('#original-width').text(parseFloat(listed[k].width));
             item.find('.item-name').text(listed[k].product)
             item.find('.item-price').text(parseFloat(listed[k].price).toLocaleString('en-US'))
             item.find('.item-total').text(parseFloat(parseFloat(listed[k].price) * parseFloat(listed[k].qty) * (parseFloat(listed[k].length1) >= 1 && parseFloat(listed[k].length1) <= 6.9 ? 0.5 :parseFloat(listed[k].length1) >= 7 && parseFloat(listed[k].length1) <= 8.9 ? 0.75 : parseFloat(listed[k].length1) >= 9 && parseFloat(listed[k].length1) <= 12.4 ? 1 :
