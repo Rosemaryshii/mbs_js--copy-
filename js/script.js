@@ -105,6 +105,18 @@ function item_actions(_this, key) {
         }
         load_list()
     })
+    _this.find('.remarks').on('change input', function() {
+        // Perform actions based on the entered remarks
+        if (!!listed[key]) {
+            listed[key].remarks = $(this).val();
+            // Do something with the remarks
+            // (e.g., store them in localStorage without JSON conversion)
+            localStorage.setItem('listed', JSON.stringify(listed));
+        }
+        // Call a function to load or update the list based on the remarks
+        load_list();
+    });
+    
 }
 
 function load_list() {
@@ -117,6 +129,7 @@ function load_list() {
             item.find('.qty').val(parseFloat(listed[k].qty))
             item.find('.length1').val(parseFloat(listed[k].length1))
             item.find('.width').val(parseFloat(listed[k].width))
+            item.find('.remarks').val(listed[k].remarks)
             item.find('#original-length').text(parseFloat(listed[k].length1));
 item.find('#original-width').text(parseFloat(listed[k].width));
             item.find('.item-name').text(listed[k].product)
@@ -188,6 +201,7 @@ item.find('#original-width').text(parseFloat(listed[k].width));
             item_actions(item, k)
             update_total()
         })
+        
     }
     check_items()
 }
@@ -230,7 +244,8 @@ $(function() {
         var length1 = _this.find('[name="length1"]').val()
         var width = _this.find('[name="width"]').val()
         var qty = _this.find('[name="qty"]').val()
-        listed[listed.length] = { product: product, price: price,length1:length1, width:width, qty: qty }
+        var remarks = _this.find('[name="remarks"]').val()
+        listed[listed.length] = { product: product, price: price,length1:length1, width:width, remarks:remarks, qty: qty }
         localStorage.setItem('listed', JSON.stringify(listed))
         _this[0].reset()
         _this.find('[name="name"]').val('')
@@ -271,7 +286,7 @@ $(function() {
                     // el.find('#r-change').text(parseFloat(change).toLocaleString('en-US', { style: 'decimal', maximumFractionDigits: 2, minimumFractionDigits: 2 }))
                     Object.keys(listed).map((k) => {
                         
-                        el.find('#product-list').append('<div class="col-6 text-start lh-1">' + (listed[k].product)  + '</small></div></div>')
+                        el.find('#product-list').append('<div class="col-2 text-start lh-1">' + (listed[k].product)  + '</small></div></div>')
                         el.find('#product-list').append('<div class="col-1 text-start">' + (parseFloat(listed[k].length1).toLocaleString('en-US')) + '</div>')
                         el.find('#product-list').append('<div class="col-1 text-start">' + (parseFloat(listed[k].width).toLocaleString('en-US')) + '</div>')
                         el.find('#product-list').append('<div class="col-1 text-start">' + (parseFloat(listed[k].qty).toLocaleString('en-US')) + '</div>')
@@ -306,6 +321,7 @@ $(function() {
                         parseFloat(listed[k].width) >= 97 && parseFloat(listed[k].width) <= 108 ? 9 :
                         parseFloat(listed[k].width) >= 109 && parseFloat(listed[k].width) <= 120 ? 10 :
                         parseFloat(listed[k].width) >= 121 && parseFloat(listed[k].width) <= 133 ? 11 : 0).toLocaleString('en-US', { style: 'decimal', maximumFractionDigits: 2, minimumFractionDigits: 2 })) + '</div>')
+                        el.find('#product-list').append('<div class="col-4 text-start">' + (listed[k].remarks).toLocaleString('en-US') + '</div>')
                     })
 
 // + (parseFloat(listed[k].price).toLocaleString('en-US', { style: 'decimal', maximumFractionDigits: 2, minimumFractionDigits: 2 }))
