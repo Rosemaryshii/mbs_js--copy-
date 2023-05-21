@@ -381,11 +381,6 @@
             </a>
           </li>
           <li>
-            <a href="forms-editors.html">
-              <i class="bi bi-circle"></i><span>Form Editors</span>
-            </a>
-          </li>
-          <li>
             <a href="forms-validation.html">
               <i class="bi bi-circle"></i><span>Form Validation</span>
             </a>
@@ -407,15 +402,11 @@
             </a>
           </li>
           <li>
-            <a href="forms-layouts.html">
+            <a href="edit_glass.html">
               <i class="bi bi-circle"></i><span>Edit Glasses</span>
             </a>
           </li>
-          <li>
-            <a href="forms-editors.html">
-              <i class="bi bi-circle"></i><span>Delete Glass</span>
-            </a>
-          </li>
+
         </ul>
       </li>
       <!-- Products ends here -->
@@ -1220,6 +1211,3 @@
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
 
-</body>
-
-</html>
