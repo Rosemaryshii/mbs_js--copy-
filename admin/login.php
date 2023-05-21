@@ -64,28 +64,28 @@
                     <p class="text-center small">Enter your username & password to login</p>
                   </div>
 
-                  <form class="row g-3 needs-validation" novalidate  method="POST" action="log_proc.php">
-
+                  <form class="row g-3 needs-validation" novalidate method="POST" action="log_proc.php">
                     <div class="col-12">
                       <label for="email" class="form-label">Email</label>
                       <div class="input-group has-validation">
-                    
                         <input type="email" name="email" class="form-control" id="yourEmail" required>
-                        <div class="invalid-feedback">Please enter yourEmail.</div>
+                        <?php if (isset($_GET['error']) && $_GET['error'] === 'email') : ?>
+                          <div class="invalid-feedback error-message">Email not found in the database.</div>
+                        <?php endif; ?>
                       </div>
                     </div>
 
                     <div class="col-12">
                       <label for="yourPassword" class="form-label">Password</label>
                       <input type="password" name="password" class="form-control" id="yourPassword" required>
-                      <div class="invalid-feedback">Please enter your password!</div>
+                      <?php if (isset($_GET['error']) && $_GET['error'] === 'password') : ?>
+                        <div class="text-danger">Incorrect password or email.</div>
+                      <?php endif; ?>
+                      <div class="invalid-feedback error-message">Please enter your password!</div>
                     </div>
 
                     <div class="col-12">
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="remember" value="true" id="rememberMe">
-                        <label class="form-check-label" for="rememberMe">Remember me</label>
-                      </div>
+                      <!-- ... -->
                     </div>
                     <div class="col-12">
                       <button class="btn btn-primary w-100" type="submit">Login</button>
@@ -108,6 +108,22 @@
   </main><!-- End #main -->
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+
+  <script>
+    // Function to hide the error messages after a delay
+    function hideErrorMessages() {
+      setTimeout(function() {
+        const errorMessages = document.querySelectorAll('.error-message');
+        errorMessages.forEach(function(errorMessage) {
+          errorMessage.style.display = 'none';
+        });
+      }, 3000); // Adjust the delay (in milliseconds) as per your preference
+    }
+
+    // Call the function to hide error messages
+    hideErrorMessages();
+  </script>
 
   <!-- Vendor JS Files -->
   <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>

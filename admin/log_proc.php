@@ -12,24 +12,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   require_once 'includes/db-conn.php'; 
 
   // SQL query to check user credentials
-  $query = "SELECT * FROM users WHERE email = :email AND password = :password";
+  $query = "SELECT * FROM users WHERE email = :email";
   $statement = $db->prepare($query);
   $statement->bindParam(':email', $email);
-  $statement->bindParam(':password', $password);
   $statement->execute();
 
   // Check if the user exists
   if ($statement->rowCount() > 0) {
-    // User authentication successful
-    echo "<p>Login successful!</p>";
-    header("Location: index.php");
+    $user = $statement->fetch();
 
-    exit(); // Make sure to exit after the redirect
-
+    // Verify the password
+    if (password_verify($password, $user['password'])) {
+      // User authentication successful
+      header("Location: index.php");
+      exit(); // Make sure to exit after the redirect
+    } else {
+      // Incorrect password
+      header("Location: login.php?error=password");
+      exit();
+    }
   } else {
-    // User authentication failed
-    echo "<p>Login failed. Invalid email or password.</p>";
+    // Email not found in the database
+    header("Location: login.php?error=email");
+    exit();
   }
 }
 ?>
-
