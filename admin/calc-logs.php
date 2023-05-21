@@ -39,8 +39,9 @@
                 <td>28</td>
                 <td>2016-05-25</td>
                 <td>
-                  <button class="btn btn-primary edit-btn btn-sm"data-bs-toggle="modal" data-bs-target="#viewlogs">view</button> <!-- Edit button -->
-                  <button class="btn btn-danger delete-btn btn-sm">Delete</button> <!-- Delete button -->
+                  <button class="btn btn-primary edit-btn btn-sm"data-bs-toggle="modal" data-bs-target="#viewlogs">view</button> 
+                  <!-- Edit button -->
+                  <button class="btn btn-danger delete-btn btn-sm"data-bs-toggle="modal" data-bs-target="#del-Log">Delete</button> <!-- Delete button -->
                 </td>
               </tr>
               <tr>
@@ -98,7 +99,7 @@
                 <div class="modal-content">
                   <div class="modal-header text-center">
                     <h4 class="modal-title w-80 font-weight-bold">Edit Glass</h4>
-                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <button type="button" class="close border-0" data-bs-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span>
                     </button>
                   </div>
@@ -145,15 +146,16 @@
             <!-- VIEW MODAL -->
 
             <!-- DELETE MODAL START-->
-      <div id="my-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+      <div id="del-Log" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content border-0">   
                 <div class="modal-body p-0">
                     <div class="card border-0 p-sm-3 p-2 justify-content-center">
-                        <div class="card-header pb-0 bg-white border-0 "><div class="row"><div class="col ml-auto"><button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span> </button></div> </div>
+                        <div class="card-header pb-0 bg-white border-0 "><div class="row"><div class="col ml-auto">
+                          <button type="button" class="close border-0" data-bs-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span> </button></div> </div>
                         <p class="font-weight-bold mb-2"> Are you sure you wanna delete this ?</p><p class="text-muted "> This change will reflect in your portal after an hour.</p>     </div>
                         <div class="card-body px-sm-4 mb-2 pt-1 pb-0"> 
-                            <div class="row justify-content-end no-gutters"><div class="col-auto"><button type="button" class="btn btn-light text-muted" data-dismiss="modal">Cancel</button></div><div class="col-auto"><button type="button" class="btn btn-danger px-4" data-dismiss="modal">Delete</button></div></div>
+                            <div class="row justify-content-end no-gutters"><div class="col-auto"><button type="button" class="btn btn-light text-muted" data-bs-dismiss="modal">Cancel</button></div><div class="col-auto"><button type="button" class="btn btn-danger px-4" data-dismiss="modal">Delete</button></div></div>
                         </div>
                     </div>  
                 </div>
