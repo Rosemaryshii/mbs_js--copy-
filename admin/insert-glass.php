@@ -36,7 +36,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
   if ($insertStatement->execute()) {
     // Glass added successfully, redirect back to the form with a success message
-    header("Location: glass.php?success=true");
+    $SuccesMessage = "Glass added successfully.";
+    header("Location: glass.php?success=" . urlencode($SuccesMessage));
     exit();
   } else {
     // Error occurred while adding glass, redirect back to the form with an error message
@@ -49,3 +50,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   header("Location: glass.php");
   exit();
 }
+
+?>

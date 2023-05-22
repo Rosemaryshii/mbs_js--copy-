@@ -8,7 +8,7 @@ if (isset($_GET['error'])) {
 }
 
 if (isset($_GET['success'])) {
-  // Display success message if needed
+  $SuccesMessage = $_GET['success'];
 }
 ?>
 
@@ -29,23 +29,41 @@ if (isset($_GET['success'])) {
       <h5 class="card-title">Add New Glass</h5>
 
       <!-- Error message section -->
-      <?php if (isset($errorMessage)): ?>
-        <div id="error-message" class="alert alert-danger" role="alert">
-          <?php echo $errorMessage; ?>
-        </div>
-        <script>
-          setTimeout(function() {
-            var errorMessage = document.getElementById('error-message');
-            if (errorMessage) {
-              errorMessage.style.display = 'none';
-            }
-          }, 5000); // Timeout after 5 seconds (adjust as needed)
-        </script>
+      <?php if (isset($SuccesMessage)) : ?>
+        <div class="alert alert-success" role="alert" id="success-message">
+          <?php echo $SuccesMessage; ?></div>
       <?php endif; ?>
+
+      <?php if (isset($errorMessage)) : ?>
+        <div class="alert alert-danger" role="alert" id="'error-message">
+          <?php echo $errorMessage; ?></div>
+      <?php endif; ?>
+
+      <script>
+        document.addEventListener("DOMContentLoaded", function() {
+          var errorMessage = document.querySelector('.alert-danger');
+          var successMessage = document.querySelector('.alert-success');
+
+          if (errorMessage) {
+            setTimeout(function() {
+              errorMessage.style.display = 'none';
+            }, 3000);
+          }
+
+          if (successMessage) {
+            setTimeout(function() {
+              successMessage.style.display = 'none';
+            }, 5000);
+          }
+        });
+      </script>
+
+
+
       <!-- End error message section -->
 
       <!-- Floating Labels Form -->
-      <form class="row g-3" method="POST" action="add-glass.php">
+      <form class="row g-3" method="POST" action="insert-glass.php">
         <div class="col-md-6">
           <div class="form-floating">
             <input type="text" class="form-control" name="GlassName" id="GlassName" placeholder="Glass name">
@@ -59,10 +77,15 @@ if (isset($_GET['success'])) {
           </div>
         </div>
         <div class="text-center">
-         <button type="submit" class="btn btn-primary">Submit</button>
+          <button type="submit" class="btn btn-primary">Submit</button>
           <button type="reset" class="btn btn-secondary">Reset</button>
         </div>
       </form><!-- End floating Labels Form -->
     </div>
   </div>
 </main><!-- End #main -->
+
+<!-- ======= Footer ======= -->
+<?php
+include 'includes/footer.php';
+?>

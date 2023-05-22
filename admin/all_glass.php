@@ -1,4 +1,14 @@
-<?php include 'includes/header.php'; ?>
+<?php
+include 'includes/header.php';
+require_once 'includes/db-conn.php';
+
+// Fetch all glasses from the database
+$selectQuery = "SELECT * FROM glass";
+$statement = $db->prepare($selectQuery);
+$statement->execute();
+$glasses = $statement->fetchAll(PDO::FETCH_ASSOC);
+?>
+
 
 <main id="main" class="main">
 
@@ -18,6 +28,7 @@
       <div class="col-lg-12">
         <div class="card">
           <div class="card-body">
+
             <!-- Table with stripped rows -->
             <table class="table table-striped table-bordered datatable">
               <thead>
@@ -25,67 +36,26 @@
                   <th scope="col">#</th>
                   <th scope="col">Glass Name</th>
                   <th scope="col">Glass Price</th>
-
-                  <th scope="col">Actions</th> <!-- New header for actions -->
+                  <th scope="col">Actions</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <th scope="row">1</th>
-                  <td>Brandon Jacob</td>
-                  <td>Designer</td>
-
-                  <td>
-                    <button class="btn btn-primary edit-btn btn-sm" data-bs-toggle="modal" data-bs-target="#editglass">Edit</button> <!-- Edit button -->
-                    <button class="btn btn-danger delete-btn btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</button>
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row">2</th>
-                  <td>Bridie Kessler</td>
-                  <td>Developer</td>
-
-                  <td>
-                    <button class="btn btn-primary edit-btn btn-sm">Edit</button>
-                    <button class="btn btn-danger delete-btn btn-sm">Delete</button>
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row">3</th>
-                  <td>Ashleigh Langosh</td>
-                  <td>Finance</td>
-
-                  <td>
-                    <button class="btn btn-primary edit-btn btn-sm">Edit</button>
-                    <button class="btn btn-danger delete-btn btn-sm">Delete</button>
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row">4</th>
-                  <td>Angus Grady</td>
-                  <td>HR</td>
-
-                  <td>
-                    <button class="btn btn-primary edit-btn btn-sm">Edit</button>
-                    <button class="btn btn-danger delete-btn btn-sm">Delete</button>
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row">5</th>
-                  <td>Raheem Lehner</td>
-                  <td>Dynamic Division </td>
-
-                  <td>
-                    <button class="btn btn-primary edit-btn btn-sm">Edit</button>
-                    <button class="btn btn-danger delete-btn btn-sm">Delete</button>
-                  </td>
-                </tr>
+                <?php foreach ($glasses as $index => $glass): ?>
+                  <tr>
+                    <th scope="row"><?php echo $index + 1; ?></th>
+                    <td><?php echo $glass['GlassName']; ?></td>
+                    <td><?php echo $glass['price']; ?></td>
+                    <td>
+                      <button class="btn btn-primary edit-btn btn-sm" data-bs-toggle="modal" data-bs-target="#editglass" data-glass-id="<?php echo $glass['id']; ?>">Edit</button>
+                      <button class="btn btn-danger delete-btn btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal" data-glass-id="<?php echo $glass['id']; ?>">Delete</button>
+                    </td>
+                  </tr>
+                <?php endforeach; ?>
               </tbody>
             </table>
             <!-- End Table with stripped rows -->
 
             <!-- EDIT MODAL -->
-
             <div class="modal fade" id="editglass" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
               <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -95,21 +65,22 @@
                       <span aria-hidden="true">&times;</span>
                     </button>
                   </div>
-                  <div class="modal-body mx-3">
-                    <div class="md-form mb-5">
-                      <input type="text" id="defaultForm-email" class="form-control validate">
-                      <label data-error="wrong" data-success="right" for="defaultForm-email">Glass Name</label>
+
+                  <form action="update_glass.php" method="POST"> <!-- Replace 'edit_glass.php' with the actual file that handles the edit operation -->
+                    <div class="modal-body">
+                      <!-- Populate the form fields with the values from the database -->
+                      <input type="hidden" name="id" id="edit-glass-id" value="">
+                      <label for="edit-glass-name">Glass Name</label>
+                      <input type="text" name="glass_name" id="edit-glass-name" class="form-control" required>
+
+                      <label for="edit-glass-price">Glass Price</label>
+                      <input type="text" name="glass_price" id="edit-glass-price" class="form-control" required>
                     </div>
 
-                    <div class="md-form mb-4">
-                      <input type="number" id="defaultForm-pass" class="form-control validate">
-                      <label data-error="wrong" data-success="right" for="defaultForm-pass">Glass Price</label>
+                    <div class="modal-footer d-flex justify-content-center">
+                      <button type="submit" class="btn btn-info">Submit</button>
                     </div>
-
-                  </div>
-                  <div class="modal-footer d-flex justify-content-center">
-                    <button class="btn btn-info">Submit</button>
-                  </div>
+                  </form>
                 </div>
               </div>
             </div>
@@ -130,7 +101,10 @@
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-danger">Delete</button>
+                    <form action="delete_glass.php" method="POST"> <!-- Replace 'delete_glass.php' with the actual file that handles the delete operation -->
+                      <input type="hidden" name="glass_id" id="delete-glass-id" value="">
+                      <button type="submit" class="btn btn-danger delete-btn btn-sm">Delete</button>
+                    </form>
                   </div>
                 </div>
               </div>
@@ -142,9 +116,6 @@
       </div>
     </div>
   </section>
-
-
-
 </main><!-- End #main -->
 
 <!-- ======= Footer ======= -->
