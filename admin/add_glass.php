@@ -1,6 +1,9 @@
 
-<?php     include 'includes/header.php';   ?>
-
+<?php   
+              // include 'includes/sessions.php';
+              include 'includes/header.php';   
+              
+?>
   <main id="main" class="main">
 
     <div class="pagetitle">
