@@ -86,18 +86,18 @@ function item_actions(_this, key) {
     })
     _this.find('.length1').on('change input', function() {
         if (!!listed[key]) {
-            listed[key].length1 = $(this).val();
-            localStorage.setItem('listed', JSON.stringify(listed));
+          listed[key].length1 = parseFloat($(this).val());
+          localStorage.setItem('listed', JSON.stringify(listed));
         }
-        load_list()
-    })
-    _this.find('.width').on('change input', function() {
+        load_list();
+      });
+      _this.find('.width').on('change input', function() {
         if (!!listed[key]) {
-            listed[key].width = $(this).val();
-            localStorage.setItem('listed', JSON.stringify(listed));
+          listed[key].width = parseFloat($(this).val());
+          localStorage.setItem('listed', JSON.stringify(listed));
         }
-        load_list()
-    })
+        load_list();
+      });
     _this.find('.qty').on('change input', function() {
         if (!!listed[key]) {
             listed[key].qty = $(this).val()
@@ -134,7 +134,7 @@ function load_list() {
 item.find('#original-width').text(parseFloat(listed[k].width));
             item.find('.item-name').text(listed[k].product)
             item.find('.item-price').text(parseFloat(listed[k].price).toLocaleString('en-US'))
-            item.find('.item-total').text(parseFloat(parseFloat(listed[k].price) * parseFloat(listed[k].qty) * (parseFloat(listed[k].length1) >= 1 && parseFloat(listed[k].length1) <= 6.9 ? 0.5 :parseFloat(listed[k].length1) >= 7 && parseFloat(listed[k].length1) <= 8.9 ? 0.75 : parseFloat(listed[k].length1) >= 9 && parseFloat(listed[k].length1) <= 12.4 ? 1 :
+            item.find('.item-total').text(Math.trunc(parseFloat(parseFloat(listed[k].price) * parseFloat(listed[k].qty) * (parseFloat(listed[k].length1) >= 1 && parseFloat(listed[k].length1) <= 6.9 ? 0.5 :parseFloat(listed[k].length1) >= 7 && parseFloat(listed[k].length1) <= 8.9 ? 0.75 : parseFloat(listed[k].length1) >= 9 && parseFloat(listed[k].length1) <= 12.4 ? 1 :
             parseFloat(listed[k].length1) >= 12.5 && parseFloat(listed[k].length1) <= 15.4 ? 1.25 :
             parseFloat(listed[k].length1) >= 15.5 && parseFloat(listed[k].length1) <= 18.9 ? 1.5 :
             parseFloat(listed[k].length1) >= 19 && parseFloat(listed[k].length1) <= 24.9 ? 2.15 :
@@ -164,9 +164,9 @@ item.find('#original-width').text(parseFloat(listed[k].width));
             parseFloat(listed[k].width) >= 85 && parseFloat(listed[k].width) <= 96.9 ? 8 :
             parseFloat(listed[k].width) >= 97 && parseFloat(listed[k].width) <= 108 ? 9 :
             parseFloat(listed[k].width) >= 109 && parseFloat(listed[k].width) <= 120 ? 10 :
-            parseFloat(listed[k].width) >= 121 && parseFloat(listed[k].width) <= 133 ? 11 : 0)).toLocaleString('en-US')
+            parseFloat(listed[k].width) >= 121 && parseFloat(listed[k].width) <= 133 ? 11 : 0))).toLocaleString('en-US')
 
-            total += parseFloat(listed[k].price) * parseFloat(listed[k].qty) * (parseFloat(listed[k].length1) >= 1 && parseFloat(listed[k].length1) <= 6.9 ? 0.5 :parseFloat(listed[k].length1) >= 7 && parseFloat(listed[k].length1) <= 8.9 ? 0.75 : parseFloat(listed[k].length1) >= 9 && parseFloat(listed[k].length1) <= 12.4 ? 1 :
+            total += Math.trunc(parseFloat(listed[k].price) * parseFloat(listed[k].qty) * (parseFloat(listed[k].length1) >= 1 && parseFloat(listed[k].length1) <= 6.9 ? 0.5 :parseFloat(listed[k].length1) >= 7 && parseFloat(listed[k].length1) <= 8.9 ? 0.75 : parseFloat(listed[k].length1) >= 9 && parseFloat(listed[k].length1) <= 12.4 ? 1 :
             parseFloat(listed[k].length1) >= 12.5 && parseFloat(listed[k].length1) <= 15.4 ? 1.25 :
             parseFloat(listed[k].length1) >= 15.5 && parseFloat(listed[k].length1) <= 18.9 ? 1.5 :
             parseFloat(listed[k].length1) >= 19 && parseFloat(listed[k].length1) <= 24.9 ? 2.15 :
@@ -196,7 +196,7 @@ item.find('#original-width').text(parseFloat(listed[k].width));
             parseFloat(listed[k].width) >= 85 && parseFloat(listed[k].width) <= 96.9 ? 8 :
             parseFloat(listed[k].width) >= 97 && parseFloat(listed[k].width) <= 108 ? 9 :
             parseFloat(listed[k].width) >= 109 && parseFloat(listed[k].width1) <= 120 ? 10 :
-            parseFloat(listed[k].width) >= 121 && parseFloat(listed[k].width) <= 133 ? 11 : 0);
+            parseFloat(listed[k].width) >= 121 && parseFloat(listed[k].width) <= 133 ? 11 : 0));
             $('#item-list tbody').append(item)
             item_actions(item, k)
             update_total()
@@ -290,7 +290,7 @@ $(function() {
                         el.find('#product-list').append('<div class="col-1 text-start">' + (parseFloat(listed[k].length1).toLocaleString('en-US')) + '</div>')
                         el.find('#product-list').append('<div class="col-1 text-start">' + (parseFloat(listed[k].width).toLocaleString('en-US')) + '</div>')
                         el.find('#product-list').append('<div class="col-1 text-start">' + (parseFloat(listed[k].qty).toLocaleString('en-US')) + '</div>')
-                        el.find('#product-list').append('<div class="col-3 text-end">' + (parseFloat(parseFloat(listed[k].price) * parseFloat(listed[k].qty) * (parseFloat(listed[k].length1) >= 1 && parseFloat(listed[k].length1) <= 6.9 ? 0.5 :parseFloat(listed[k].length1) >= 7 && parseFloat(listed[k].length1) <= 8.9 ? 0.75 : parseFloat(listed[k].length1) >= 9 && parseFloat(listed[k].length1) <= 12.4 ? 1 :
+                        el.find('#product-list').append('<div class="col-3 text-end">' + Math.trunc(parseFloat(parseFloat(listed[k].price) * parseFloat(listed[k].qty) * (parseFloat(listed[k].length1) >= 1 && parseFloat(listed[k].length1) <= 6.9 ? 0.5 :parseFloat(listed[k].length1) >= 7 && parseFloat(listed[k].length1) <= 8.9 ? 0.75 : parseFloat(listed[k].length1) >= 9 && parseFloat(listed[k].length1) <= 12.4 ? 1 :
                         parseFloat(listed[k].length1) >= 12.5 && parseFloat(listed[k].length1) <= 15.4 ? 1.25 :
                         parseFloat(listed[k].length1) >= 15.5 && parseFloat(listed[k].length1) <= 18.9 ? 1.5 :
                         parseFloat(listed[k].length1) >= 19 && parseFloat(listed[k].length1) <= 24.9 ? 2.15 :
