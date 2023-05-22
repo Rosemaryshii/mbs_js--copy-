@@ -1,6 +1,8 @@
 <?php
 // log_proc.php
 
+session_start(); // Start the session
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   // Handle form submission
 
@@ -24,6 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Verify the password
     if (password_verify($password, $user['password'])) {
       // User authentication successful
+      $_SESSION['user_id'] = $user['id']; // Store the user ID in the session
       header("Location: index.php");
       exit(); // Make sure to exit after the redirect
     } else {

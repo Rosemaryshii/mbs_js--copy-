@@ -1,3 +1,14 @@
+<?php
+session_start();
+
+// Check if the sign-out button is clicked
+if (isset($_POST['signout'])) {
+  // Destroy the session and redirect to the sign-in page
+  session_destroy();
+  header("Location: login.php");
+  exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -98,11 +109,13 @@
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="#">
+            <form method="POST" action="">
+              <button class="dropdown-item d-flex align-items-center" type="submit" name="signout">
                 <i class="bi bi-box-arrow-right"></i>
                 <span>Sign Out</span>
-              </a>
-            </li>
+              </button>
+            </form>
+          </li>
 
           </ul><!-- End Profile Dropdown Items -->
         </li><!-- End Profile Nav -->
@@ -133,7 +146,7 @@
         </a>
         <ul id="Glasses-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="add_glass.php">
+            <a href="glass.php">
               <i class="bi bi-circle"></i><span>Add  Glass</span>
             </a>
           </li>
@@ -165,7 +178,6 @@
 
             <!--LOGS ENDSHERE -->
           <!-- End Tables Nav -->
-
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="profile.php">
