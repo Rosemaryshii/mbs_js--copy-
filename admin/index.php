@@ -148,10 +148,10 @@
   </div>
 
   <div class="card-body">
-    <h5 class="card-title">Total Glasses <span>| This Year</span></h5>
+    <h5 class="card-title">Glasses <span>| Total</span></h5>
 
     <div class="d-flex align-items-center">
-      <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+      <div class="card-icon rounded-circle d-flex align-items-center justify-content-center text-primary">
       <i class="bi bi-aspect-ratio"></i>
       </div>
       <div class="ps-3">

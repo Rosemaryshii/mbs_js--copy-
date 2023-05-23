@@ -1,26 +1,22 @@
 <?php
 require_once 'includes/db-conn.php';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  // Retrieve the updated glass data from the form submission
-  $glassId = $_POST['id'];
-  $glassName = $_POST['glass_name'];
-  $glassPrice = $_POST['glass_price'];
+if (isset($_POST['update-glass'])) {
+  $glassId = $_POST['edit-glass-id'];
+  $glassName = $_POST['edit-glass-name'];
+  $glassPrice = $_POST['edit-glass-price'];
 
-  // Update the glass data in the database
-  $updateQuery = "UPDATE glass SET GlassName = :name, price = :price WHERE id = :id";
+  // Update the glass in the database
+  $updateQuery = "UPDATE glass SET GlassName = :glassName, price = :glassPrice WHERE id = :glassId";
   $statement = $db->prepare($updateQuery);
-  $statement->bindParam(':name', $glassName);
-  $statement->bindParam(':price', $glassPrice);
-  $statement->bindParam(':id', $glassId);
+  $statement->bindValue(':glassName', $glassName);
+  $statement->bindValue(':glassPrice', $glassPrice);
+  $statement->bindValue(':glassId', $glassId);
   $statement->execute();
 
-  // Redirect back to the previous page with a success message
-  header('Location: index.php?success=Glass updated successfully');
-  exit();
-} else {
-  // If accessed directly without a POST request, redirect back to the previous page
-  header('Location: index.php');
+  // Redirect back to the page where the form is displayed
+  header("Location: all_glass.php");
   exit();
 }
 ?>
+
