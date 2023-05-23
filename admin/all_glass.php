@@ -101,7 +101,7 @@ $glasses = $statement->fetchAll(PDO::FETCH_ASSOC);
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <form action="delete_glass.php" method="POST">
+                    <form action="delete-glass.php" method="POST">
                       <input type="hidden" name="glass_id" id="delete-glass-id" value="">
                       <button type="submit" class="btn btn-danger delete-btn btn-sm">Delete</button>
                     </form>

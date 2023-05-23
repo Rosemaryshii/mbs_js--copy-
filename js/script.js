@@ -43,7 +43,7 @@ function load_products() {
         prod_ajax.abort()
     }
     find_prod_ajax = $.ajax({
-        url: './product_json.json',
+        url: 'admin/retrieve-glass.php',
         dataType: 'json',
         error: err => {
             alert('An error occurred.')

@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $password = $_POST['password'];
 
   // Database connection
-  require_once 'includes/db-conn.php'; 
+  require_once 'admin/includes/db-conn.php'; 
 
   // SQL query to check user credentials
   $query = "SELECT * FROM users WHERE email = :email";
@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (password_verify($password, $user['password'])) {
       // User authentication successful
       $_SESSION['user_id'] = $user['id']; // Store the user ID in the session
-      header("Location: index.php");
+      header("Location: admin/index.php");
       exit(); // Make sure to exit after the redirect
     } else {
       // Incorrect password

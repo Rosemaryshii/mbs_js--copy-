@@ -1,13 +1,13 @@
 <?php
-session_start();
+// session_start();
 
 // Check if the sign-out button is clicked
-if (isset($_POST['signout'])) {
+// if (isset($_POST['signout'])) {
   // Destroy the session and redirect to the sign-in page
-  session_destroy();
-  header("Location: login.php");
-  exit;
-}
+  // session_destroy();
+  // header("Location: login.php");
+  // exit;
+// }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -55,12 +55,13 @@ if (isset($_POST['signout'])) {
       <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
 
-    <div class="search-bar">
+    <!-- <div class="search-bar">
       <form class="search-form d-flex align-items-center" method="POST" action="#">
         <input type="text" name="query" placeholder="Search" title="Enter search keyword">
         <button type="submit" title="Search"><i class="bi bi-search"></i></button>
       </form>
-    </div><!-- End Search Bar -->
+    </div> -->
+    <!-- End Search Bar -->
 
     <nav class="header-nav ms-auto">
       <ul class="d-flex align-items-center">
