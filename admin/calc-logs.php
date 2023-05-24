@@ -52,7 +52,7 @@
                 <td>2014-12-05</td>
                 <td>
                   <button class="btn btn-primary edit-btn btn-sm">view</button>
-                  <button class="btn btn-danger delete-btn btn-sm">Delete</button>
+                  <button class="btn btn-danger delete-btn btn-sm hidden">Delete</button>
                 </td>
               </tr>
               <tr>

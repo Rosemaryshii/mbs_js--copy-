@@ -1,6 +1,10 @@
 <?php
 // reg_proc.php
 
+
+  // Database connection
+  require_once 'includes/db-conn.php';
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   // Handle form submission
 
@@ -10,8 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $userN = $_POST['userN'];
   $password = $_POST['password'];
 
-  // Database connection
-  require_once 'includes/db-conn.php';
+
 
   // Check if the email or username already exists
   $checkQuery = "SELECT * FROM users WHERE email = :email OR userN = :userN";

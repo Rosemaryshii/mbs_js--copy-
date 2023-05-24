@@ -1,10 +1,14 @@
 <?php
-// session.php
+// sessions.php
 
-// Check if the user is authenticated
-if (!isset($_SESSION['authenticated']) || $_SESSION['authenticated'] !== true) {
+session_start(); // Start the session
+
+// Check if the user is logged in
+if (!isset($_SESSION['userN'])) {
   // Redirect the user to the login page
-  header("Location: login.php");
+  header("Location: ../login.php");
   exit();
 }
+
+$username = $_SESSION['userN'];
 ?>

@@ -1,5 +1,7 @@
 <?php 
+    //  session_start();
      include 'includes/header.php';
+     include 'includes/db-conn.php';
 ?>
 
   <main id="main" class="main">
@@ -8,7 +10,7 @@
       <h1>Dashboard</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+          <li class="breadcrumb-item"><a href="index.php">Home</a></li>
           <li class="breadcrumb-item active">Dashboard</li>
         </ol>
       </nav>
@@ -117,8 +119,8 @@
                       <i class="bi bi-people"></i>
                     </div>
                     <div class="ps-3">
-                      <h6>1244</h6>
-                      <span class="text-danger small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">decrease</span>
+                      <h6>124</h6>
+                      <span class="text-danger small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">increase</span>
 
                     </div>
                   </div>
@@ -148,20 +150,36 @@
   </div>
 
   <div class="card-body">
-    <h5 class="card-title">Glasses <span>| Total</span></h5>
+  <h5 class="card-title">Glass Types<span>.</span></h5>
 
-    <div class="d-flex align-items-center">
-      <div class="card-icon rounded-circle d-flex align-items-center justify-content-center text-primary">
+  <?php
+  // Get the previous count of glasses
+  $previousCountQuery = "SELECT COUNT(*) as previous_count FROM glass";
+  $previousCountResult = $db->query($previousCountQuery);
+  $previousCount = $previousCountResult->fetchColumn();
+
+  // Get the current count of glasses
+  $currentCountQuery = "SELECT COUNT(*) as current_count FROM glass";
+  $currentCountResult = $db->query($currentCountQuery);
+  $currentCount = $currentCountResult->fetchColumn();
+
+  // Calculate the percentage increase
+  $percentageIncrease = ($currentCount - $previousCount) / $previousCount * 100;
+
+  ?>
+
+  <div class="d-flex align-items-center">
+    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center text-primary">
       <i class="bi bi-aspect-ratio"></i>
-      </div>
-      <div class="ps-3">
-        <h6>15</h6>
-        <span class="text-primary small pt-1 fw-bold">5%</span> <span class="text-muted small pt-2 ps-1">more</span>
-
-      </div>
     </div>
-
+    <div class="ps-3">
+      <h6><?php echo $currentCount; ?></h6>
+      <span class="text-primary small pt-1 fw-bold"><?php echo round($percentageIncrease, 2); ?>%</span>
+      <span class="text-muted small pt-2 ps-1"><?php echo ($percentageIncrease >= 0) ? 'more' : 'less'; ?></span>
+    </div>
   </div>
+</div>
+
 </div>
 
 </div>

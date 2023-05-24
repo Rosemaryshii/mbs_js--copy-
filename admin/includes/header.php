@@ -1,13 +1,40 @@
 <?php
-// session_start();
+ 
+//Check if the sign-out button is clicked
 
-// Check if the sign-out button is clicked
-// if (isset($_POST['signout'])) {
-  // Destroy the session and redirect to the sign-in page
-  // session_destroy();
-  // header("Location: login.php");
-  // exit;
-// }
+if (isset($_POST['signout'])) {
+ // Destroy the session and redirect to the sign-in page
+  session_destroy();
+  header("Location: login.php");
+  exit;
+}
+  //session_start();
+include 'sessions.php';
+
+// Database connection
+require_once 'db-conn.php';
+
+// Fetch user information from the database based on the session data
+if (isset($_SESSION['userN'])) {
+  $userName = $_SESSION['userN'];
+
+  $query = "SELECT job_title, name , about , phone_number , address , email   FROM users WHERE userN = :userName";
+  $statement = $db->prepare($query);
+  $statement->bindParam(':userName', $userName);
+  $statement->execute();
+
+  // Check if the user exists
+  if ($statement->rowCount() > 0) {
+    $user = $statement->fetch();
+
+    $jobTitle = $user['job_title'];
+    $fullName = $user['name'];
+    $user_about = $user['about'];
+    $phone = $user['phone_number'];
+    $user_location=$user ['address'];
+    $user_email=$user ['email'];
+  }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -55,13 +82,6 @@
       <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
 
-    <!-- <div class="search-bar">
-      <form class="search-form d-flex align-items-center" method="POST" action="#">
-        <input type="text" name="query" placeholder="Search" title="Enter search keyword">
-        <button type="submit" title="Search"><i class="bi bi-search"></i></button>
-      </form>
-    </div> -->
-    <!-- End Search Bar -->
 
     <nav class="header-nav ms-auto">
       <ul class="d-flex align-items-center">
@@ -75,18 +95,18 @@
         
 
     
-
+        <?php if (isset($username)) { ?>
         <li class="nav-item dropdown pe-3">
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
             <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-            <span class="d-none d-md-block dropdown-toggle ps-2">edwin</span>
+            <span class="d-none d-md-block dropdown-toggle ps-2"><?php echo $username ?></span>
           </a><!-- End Profile Iamge Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li class="dropdown-header">
-              <h6>edwin</h6>
-              <span>Full-stack-Developer</span>
+              <h6><?php echo $fullName ?></h6>
+              <span class="text-uppercase text-info fw-bold"><?php echo $jobTitle ?></span>
             </li>
             <li>
               <hr class="dropdown-divider">
@@ -110,7 +130,7 @@
             </li>
 
             <li>
-            <form method="POST" action="">
+            <form method="POST" action="logout.php">
               <button class="dropdown-item d-flex align-items-center" type="submit" name="signout">
                 <i class="bi bi-box-arrow-right"></i>
                 <span>Sign Out</span>
@@ -120,7 +140,7 @@
 
           </ul><!-- End Profile Dropdown Items -->
         </li><!-- End Profile Nav -->
-
+        <?php } ?>
       </ul>
     </nav><!-- End Icons Navigation -->
 

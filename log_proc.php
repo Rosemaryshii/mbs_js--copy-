@@ -3,6 +3,9 @@
 
 session_start(); // Start the session
 
+  // Database connection
+  require_once 'admin/includes/db-conn.php'; 
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   // Handle form submission
 
@@ -10,8 +13,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $email = $_POST['email'];
   $password = $_POST['password'];
 
-  // Database connection
-  require_once 'admin/includes/db-conn.php'; 
 
   // SQL query to check user credentials
   $query = "SELECT * FROM users WHERE email = :email";
@@ -26,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Verify the password
     if (password_verify($password, $user['password'])) {
       // User authentication successful
-      $_SESSION['user_id'] = $user['id']; // Store the user ID in the session
+      $_SESSION['userN'] = $user['userN']; // Store the user ID in the session
       header("Location: admin/index.php");
       exit(); // Make sure to exit after the redirect
     } else {

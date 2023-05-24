@@ -1,11 +1,11 @@
 <?php
 $host = 'localhost'; // e.g., 'localhost'
 $dbname = 'calculator';
-$username = 'root';
+$userName = 'root';
 $pass = '';
 
 try {
-  $db = new PDO("mysql:host=$host;dbname=$dbname", $username, $pass);
+  $db = new PDO("mysql:host=$host;dbname=$dbname", $userName, $pass);
   $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
   // Other configuration options if needed
 } catch(PDOException $e) {
